@@ -8,9 +8,9 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @MapperScan(basePackages="com.neepu.mapper")
 @ComponentScan(basePackages= {"com.neepu", "org.n3r.idworker"})
-public class ImoocVideosDevMiniApiApplication {
+public class NeepuVideosDevMiniApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ImoocVideosDevMiniApiApplication.class, args);
+		SpringApplication.run(NeepuVideosDevMiniApiApplication.class, args);
 	}
 }

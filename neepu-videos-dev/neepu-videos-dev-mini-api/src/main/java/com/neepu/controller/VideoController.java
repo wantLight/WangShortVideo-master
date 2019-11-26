@@ -222,14 +222,13 @@ public class VideoController extends BasicController{
         return IMoocJSONResult.ok();
     }
 
-    @ApiOperation(value="上传封面", notes="上传封面的接口")
+    @ApiOperation(value="展示全部", notes="小程序视频首页")
     @ApiImplicitParams({
             @ApiImplicitParam(name="userId", value="用户id", required=true,
                     dataType="String", paramType="form"),
-            @ApiImplicitParam(name="videoId", value="视频主键id", required=true,
+            @ApiImplicitParam(name="isSaveRecord", value="1 需要保存热搜词", required=true,
                     dataType="String", paramType="form")
     })
-
     //isSaveRecord : 1 需要保存
     @PostMapping(value="/showAll")
     public IMoocJSONResult showAll(@RequestBody Videos video,Integer isSaveRecord, Integer page) throws Exception {

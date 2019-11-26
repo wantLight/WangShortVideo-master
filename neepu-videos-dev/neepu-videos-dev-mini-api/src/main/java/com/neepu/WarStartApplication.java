@@ -1,6 +1,5 @@
 package com.neepu;
 
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 
@@ -16,6 +15,6 @@ public class WarStartApplication extends SpringBootServletInitializer{
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         //使用web.xml运行应用程序指向ImoocVideosDevMiniApiApplication，最后启动springboot
-        return builder.sources(ImoocVideosDevMiniApiApplication.class);
+        return builder.sources(NeepuVideosDevMiniApiApplication.class);
     }
 }

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 /**
- * Created by xyzzg on 2018/8/9.
+ *
  */
 @RestController
 @Api(value = "用户注册登陆的接口",tags = {"注册与登陆的controller"})

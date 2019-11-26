@@ -5,9 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created by xyzzg on 2018/8/10.
+ *
  *
  * 路径未修改前，服务器会在tomcat/bin/D:neepu_dev/下创建？
+ *
+ * lx_videos_prod
+ *
  */
 @RestController
 public class BasicController {

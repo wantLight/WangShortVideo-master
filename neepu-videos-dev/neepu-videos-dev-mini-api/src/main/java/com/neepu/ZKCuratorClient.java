@@ -54,6 +54,9 @@ public class ZKCuratorClient {
         //启动客户端
         client.start();
 
+        /**
+         * zk监听节点
+         */
         try {
 //            String testNodeData = new String(client.getData().forPath("/bgm/180819A5SX6YN5D4"));
 //            //success

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created by xyzzg on 2018/8/12.
+ *
  */
 @RestController
 @RequestMapping("/bgm")
