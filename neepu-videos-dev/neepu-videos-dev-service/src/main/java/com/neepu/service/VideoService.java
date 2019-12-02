@@ -16,7 +16,7 @@ public interface VideoService {
     void updateVideo(String videoId,String coverPath);
 
     //分页查询视频列表
-    PagedResult getAllVideos(Videos video,Integer isSaveRecord,Integer page,Integer pageSize);
+    PagedResult getAllVideos(Videos video,Integer isSaveRecord,Integer page,Integer pageSize, Integer type);
 
     /**
      * @Description: 查询我喜欢的视频列表

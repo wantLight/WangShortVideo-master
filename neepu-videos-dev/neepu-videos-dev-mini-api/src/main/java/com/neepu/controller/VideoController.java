@@ -27,8 +27,7 @@ import java.util.UUID;
  * TODO private static final Object you;
  *
  * FIXME NullPointerException
- * @Description: 敲什么代码，出去浪!
- * Created by xyzzg on 2018/8/17.
+ *
  */
 @RestController
 @RequestMapping("/video")
@@ -40,7 +39,6 @@ public class VideoController extends BasicController{
 
     @Autowired
     private VideoService videoService;
-
 
 
 
@@ -222,21 +220,23 @@ public class VideoController extends BasicController{
         return IMoocJSONResult.ok();
     }
 
+    //paramType：参数放在哪个地方
     @ApiOperation(value="展示全部", notes="小程序视频首页")
     @ApiImplicitParams({
-            @ApiImplicitParam(name="userId", value="用户id", required=true,
-                    dataType="String", paramType="form"),
+            @ApiImplicitParam(name="video", value="视频提交", required=true,
+                    dataType="Videos", paramType="form"),
             @ApiImplicitParam(name="isSaveRecord", value="1 需要保存热搜词", required=true,
-                    dataType="String", paramType="form")
+                    dataType="Integer", paramType="form"),
+            @ApiImplicitParam(name="type", value="1 按附近排序", required=true,
+                    dataType="Integer", paramType="form")
     })
-    //isSaveRecord : 1 需要保存
     @PostMapping(value="/showAll")
-    public IMoocJSONResult showAll(@RequestBody Videos video,Integer isSaveRecord, Integer page) throws Exception {
+    public IMoocJSONResult showAll(@RequestBody Videos video,Integer isSaveRecord, Integer page, Integer type) throws Exception {
 
         if (page == null){
             page = 1;
         }
-        PagedResult result = videoService.getAllVideos(video, isSaveRecord,page, PAGE_SIZE);
+        PagedResult result = videoService.getAllVideos(video, isSaveRecord,page, PAGE_SIZE, type);
         return IMoocJSONResult.ok(result);
     }
 

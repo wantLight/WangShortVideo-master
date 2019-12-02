@@ -65,6 +65,8 @@ public class RegistLoginController extends BasicController{
     }
 
     @ApiOperation(value="用户登录", notes="用户登录的接口")
+    @ApiImplicitParam(name="user", value="用户类", required=true,
+            dataType="Users", paramType="form")
     @PostMapping("/login")
     public IMoocJSONResult login(@RequestBody Users user) throws Exception {
         String username = user.getUsername();

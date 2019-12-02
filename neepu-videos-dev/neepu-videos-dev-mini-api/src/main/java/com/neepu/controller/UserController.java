@@ -8,6 +8,7 @@ import com.neepu.service.UserService;
 import com.neepu.utils.IMoocJSONResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -103,11 +104,17 @@ public class UserController extends BasicController{
     }
 
     @PostMapping("/queryPublisher")
+    @ApiOperation(value = "查询视频发布者",notes = "查询视频发布者信息接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "loginUserId", value = "登录用户Id", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "videoId", value = "视频Id", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "publishUserId", value = "发布者Id", required = true, dataType = "String", paramType = "query")
+    })
     public IMoocJSONResult queryPublisher(String loginUserId, String videoId,
                                           String publishUserId) throws Exception {
 
         if (StringUtils.isBlank(publishUserId)) {
-            return IMoocJSONResult.errorMsg("");
+            return IMoocJSONResult.errorMsg("id为空啦！");
         }
 
         // 1. 查询视频发布者的信息
@@ -126,10 +133,15 @@ public class UserController extends BasicController{
     }
 
     @PostMapping("/beyourfans")
+    @ApiOperation(value = "关注",notes = "老铁，这不关注一波？")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "登录用户Id", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "fanId", value = "关注发布者Id", required = true, dataType = "String", paramType = "query")
+    })
     public IMoocJSONResult beyourfans(String userId, String fanId) throws Exception {
 
         if (StringUtils.isBlank(userId) || StringUtils.isBlank(fanId)) {
-            return IMoocJSONResult.errorMsg("");
+            return IMoocJSONResult.errorMsg("id为空啦！");
         }
 
         userService.saveUserFanRelation(userId, fanId);
@@ -138,6 +150,11 @@ public class UserController extends BasicController{
     }
 
     @PostMapping("/dontbeyourfans")
+    @ApiOperation(value = "关注",notes = "这就取关了嘛，QAQ")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "登录用户Id", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "fanId", value = "关注发布者Id", required = true, dataType = "String", paramType = "query")
+    })
     public IMoocJSONResult dontbeyourfans(String userId, String fanId) throws Exception {
 
         if (StringUtils.isBlank(userId) || StringUtils.isBlank(fanId)) {
@@ -150,6 +167,8 @@ public class UserController extends BasicController{
     }
 
     @PostMapping("/reportUser")
+    @ApiOperation(value = "举报视频",notes = "举报信息接口")
+    @ApiImplicitParam(name = "userId",value = "用户Id",required = true,dataType = "UsersReport",paramType = "query")
     public IMoocJSONResult reportUser(@RequestBody UsersReport usersReport) throws Exception {
 
         // 保存举报信息

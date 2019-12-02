@@ -2,6 +2,7 @@ package com.neepu.service.Impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.neepu.enums.VideoStatusEnum;
 import com.neepu.mapper.*;
 import com.neepu.pojo.*;
 import com.neepu.pojo.vo.CommentsVO;
@@ -20,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by xyzzg on 2018/8/12.
+ * Created by lx on 2019/3/01.
  */
 @Service
 public class VideoServiceImpl implements VideoService {
@@ -48,6 +49,11 @@ public class VideoServiceImpl implements VideoService {
 
         String id = sid.nextShort();
         video.setId(id);
+        /**
+         * 上传视频后需要经过管理员审核
+         */
+        video.setStatus(VideoStatusEnum.AUDIT.getValue());
+
         videosMapper.insertSelective(video);
         return id;
     }
@@ -64,11 +70,12 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public PagedResult getAllVideos(Videos video,Integer isSaveRecord,Integer page,Integer pageSize) {
+    public PagedResult getAllVideos(Videos video,Integer isSaveRecord,Integer page,Integer pageSize, Integer type) {
 
         //保存热搜词
         String desc = video.getVideoDesc();
         String userId = video.getUserId();
+
         if (isSaveRecord != null && isSaveRecord == 1){
             SearchRecords searchRecords = new SearchRecords();
             String id = sid.nextShort();

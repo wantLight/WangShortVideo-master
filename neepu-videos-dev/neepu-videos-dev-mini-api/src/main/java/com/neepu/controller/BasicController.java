@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
+ * 父类Controller - 主要为了定义一些常量
  *
  * 路径未修改前，服务器会在tomcat/bin/D:neepu_dev/下创建？
  *

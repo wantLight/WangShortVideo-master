@@ -1,9 +1,14 @@
 package com.neepu.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.util.Date;
 
+
+@ApiModel(description = "视频信息")
 public class Videos {
     @Id
     private String id;
@@ -23,12 +28,14 @@ public class Videos {
     /**
      * 视频描述
      */
+    @ApiModelProperty(value = "视频描述", name = "videoDesc", required = true, example = "这是我的第一个视频呀~~~")
     @Column(name = "video_desc")
     private String videoDesc;
 
     /**
      * 视频存放的路径
      */
+    @ApiModelProperty(value = "视频存放的路径", name = "videoPath", required = true, example = "xxx/xxxx/xxx.xx")
     @Column(name = "video_path")
     private String videoPath;
 
@@ -64,8 +71,9 @@ public class Videos {
 
     /**
      * 视频状态：
-1、发布成功
-2、禁止播放，管理员操作
+      0、待审核
+      1、发布成功
+      2、禁止播放，管理员操作
      */
     private Integer status;
 
