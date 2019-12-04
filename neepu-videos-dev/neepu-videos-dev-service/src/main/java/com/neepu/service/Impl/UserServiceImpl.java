@@ -62,6 +62,16 @@ public class UserServiceImpl implements UserService {
 		userMapper.insert(user);
 	}
 
+	@Override
+	public Users queryUserForLogin(String openId) {
+		Example userExample = new Example(Users.class);
+		Criteria criteria = userExample.createCriteria();
+		//Criteria中的方法是定义SQL 语句where后的查询条件。
+		criteria.andEqualTo("openId", openId);
+		Users result = userMapper.selectOneByExample(userExample);
+		return result;
+	}
+
 	@Transactional(propagation = Propagation.SUPPORTS)
 	@Override
 	public Users queryUserForLogin(String username, String password) {

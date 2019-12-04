@@ -14,7 +14,12 @@ public interface UserService {
 	 * @Description: 保存用户(用户注册)
 	 */
 	public void saveUser(Users user);
-	
+
+	/**
+	 * @Description: 微信用户登录，根据openId
+	 */
+	Users queryUserForLogin(String openId);
+
 	/**
 	 * @Description: 用户登录，根据用户名和密码查询用户
 	 */

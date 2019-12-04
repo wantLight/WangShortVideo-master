@@ -58,6 +58,19 @@ public class Users {
     @Column(name = "receive_like_counts")
     private Integer receiveLikeCounts;
 
+    @ApiModelProperty(hidden = true)
+    @Column(name = "open_id")
+    private String openId;
+
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
     /**
      * @return id
      */

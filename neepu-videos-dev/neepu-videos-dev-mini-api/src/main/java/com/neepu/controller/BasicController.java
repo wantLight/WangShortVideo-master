@@ -32,4 +32,10 @@ public class BasicController {
     public static final Integer PAGE_SIZE = 5;
 
     //public static final String UPLOAD_PATHDB = "";
+
+    //你小程序Id
+    public static final String  appid="wx5a52fe5a3602ee99";
+
+    //填入你小程序的secret
+    public static final String secret="49638f838cd5d2b73d61617dc90efddd";
 }

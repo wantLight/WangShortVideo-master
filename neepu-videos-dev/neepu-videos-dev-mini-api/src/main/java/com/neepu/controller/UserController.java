@@ -174,7 +174,7 @@ public class UserController extends BasicController{
         // 保存举报信息
         userService.reportUser(usersReport);
 
-        return IMoocJSONResult.errorMsg("举报成功...有你平台变得更美好...");
+        return IMoocJSONResult.errorMsg("举报成功！有你校园平台变得更美好啦~");
     }
 
 
