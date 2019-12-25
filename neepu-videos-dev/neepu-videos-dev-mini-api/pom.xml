@@ -5,15 +5,27 @@
     <artifactId>neepu-videos-dev</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-
     <packaging>war</packaging>
   <artifactId>neepu-videos-dev-mini-api</artifactId>
   <dependencies>
+
   	<dependency>
   		<groupId>com.neepu</groupId>
   		<artifactId>neepu-videos-dev-service</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
+        <exclusions>
+            <exclusion>
+                <artifactId>elasticsearch</artifactId>
+                <groupId>org.elasticsearch</groupId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+
+      <dependency>
+          <groupId>org.elasticsearch</groupId>
+          <artifactId>elasticsearch</artifactId>
+          <version>7.3.0</version>
+      </dependency>
 
       <!-- 添加依赖，为了打包成war -->
       <dependency>

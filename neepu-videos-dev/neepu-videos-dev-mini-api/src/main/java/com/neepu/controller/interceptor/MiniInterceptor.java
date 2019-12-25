@@ -17,7 +17,7 @@ import com.neepu.utils.JsonUtils;
 import com.neepu.utils.RedisOperator;
 
 /**
- * Created by xyzzg on 2018/8/14.
+ * Created by xyzzg
  */
 public class MiniInterceptor implements HandlerInterceptor {
 

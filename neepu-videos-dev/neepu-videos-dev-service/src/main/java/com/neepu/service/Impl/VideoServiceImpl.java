@@ -12,6 +12,13 @@ import com.neepu.utils.PagedResult;
 import com.neepu.utils.TimeAgoUtils;
 import org.n3r.idworker.Sid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Circle;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.GeoResults;
+import org.springframework.data.geo.Point;
+import org.springframework.data.redis.connection.RedisGeoCommands;
+import org.springframework.data.redis.core.GeoOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +50,20 @@ public class VideoServiceImpl implements VideoService {
     @Autowired
     private CommentsMapper commentMapper;
 
+
+    @Autowired
+    public RedisTemplate<String, String> redisTemplate;
+
+    /**
+     *  Propagation.REQUIRED
+     * 假如当前正要执行的事务不在另外一个事务里，那么就起一个新的事务
+     *
+     * 如果ServiceA.methodA已经起了事务，这时调用ServiceB.methodB，ServiceB.methodB看到自己已经运行在ServiceA.methodA的事务内部，就不再起新的事务。
+     * 这时只有外部事务并且他们是共用的，所以这时ServiceA.methodA或者ServiceB.methodB无论哪个发生异常methodA和methodB作为一个整体都将一起回滚。
+     *
+     * @param video
+     * @return
+     */
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public String saveVideo(Videos video) {
@@ -70,7 +91,7 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public PagedResult getAllVideos(Videos video,Integer isSaveRecord,Integer page,Integer pageSize, Integer type) {
+    public PagedResult getAllVideos(Videos video,Integer isSaveRecord,Integer page,Integer pageSize, Integer type, List<String> videoIds) {
 
         //保存热搜词
         String desc = video.getVideoDesc();
@@ -85,7 +106,7 @@ public class VideoServiceImpl implements VideoService {
         }
 
         PageHelper.startPage(page,pageSize);
-        List<VideosVO> list = videosMapperCustom.queryAllVideos(desc,userId);
+        List<VideosVO> list = videosMapperCustom.queryAllVideos(desc,userId,videoIds);
 
         PageInfo<VideosVO> pageInfo = new PageInfo <>(list);
 
@@ -102,6 +123,7 @@ public class VideoServiceImpl implements VideoService {
         return searchRecordsMapper.getHotwords();
     }
 
+    //支持当前事务，如果当前没有事务，就以非事务方式执行
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public PagedResult queryMyLikeVideos(String userId, Integer page, Integer pageSize) {

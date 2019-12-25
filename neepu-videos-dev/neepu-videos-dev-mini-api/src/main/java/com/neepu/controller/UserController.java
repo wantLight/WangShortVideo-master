@@ -150,7 +150,7 @@ public class UserController extends BasicController{
     }
 
     @PostMapping("/dontbeyourfans")
-    @ApiOperation(value = "关注",notes = "这就取关了嘛，QAQ")
+    @ApiOperation(value = "取关",notes = "这就取关了嘛，QAQ")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "登录用户Id", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "fanId", value = "关注发布者Id", required = true, dataType = "String", paramType = "query")

@@ -13,9 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -29,9 +27,6 @@ public class RegistLoginController extends BasicController{
     @Autowired
     private UserService userService;
 
-
-
-
     @PostMapping("/regist")
     @ApiOperation(value = "用户注册",notes = "注册用滴")
     public IMoocJSONResult regist(@RequestBody Users users) throws Exception {
@@ -41,7 +36,6 @@ public class RegistLoginController extends BasicController{
         }
         //用户名存在？
         boolean usernameflag = userService.queryUsernameIsExist(users.getUsername());
-
 
         //保存用户
         if (!usernameflag){
@@ -80,11 +74,11 @@ public class RegistLoginController extends BasicController{
     @ApiOperation(value="微信授权登录", notes="微信登录的接口")
     @ApiImplicitParam(name="jsCode", value="使用 code 换取 openid 和 session_key信息", required=true,
             dataType="String", paramType="form")
-    @PostMapping("/wechatLogin")
+    @GetMapping("/wechatLogin")
     public IMoocJSONResult wechatLogin(String jsCode) throws Exception {
 
         if (StringUtils.isBlank(jsCode)) {
-            return IMoocJSONResult.ok("jsCode不得为空...");
+            return IMoocJSONResult.errorMsg("jsCode不得为空...");
         }
 
         //使用 code 换取 openid 和 session_key 等信息

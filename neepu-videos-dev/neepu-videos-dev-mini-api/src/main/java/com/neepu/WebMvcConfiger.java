@@ -4,10 +4,7 @@ import com.neepu.controller.interceptor.MiniInterceptor;
 import org.apache.tomcat.jni.OS;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 
 /**
  *
@@ -22,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  那么 目录下的所有文件（夹）其实都是匹配到的。
  */
 @Configuration
-public class WebMvcConfiger extends WebMvcConfigurerAdapter{
+public class WebMvcConfiger extends WebMvcConfigurationSupport {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //资源映射
@@ -34,7 +31,7 @@ public class WebMvcConfiger extends WebMvcConfigurerAdapter{
         } else{
             registry.addResourceHandler("/**")
                     .addResourceLocations("classpath:/META-INF/resources/")
-                    .addResourceLocations("file:/home/neepu_videos_dev/");
+                    .addResourceLocations("file:/home/lx_videos_prod/");
         }
 
     }

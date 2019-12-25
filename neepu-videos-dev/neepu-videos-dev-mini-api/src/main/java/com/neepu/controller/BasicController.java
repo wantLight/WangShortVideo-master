@@ -21,13 +21,13 @@ public class BasicController {
 
     public static final String USER_REDIS_SESSION = "user-redis-session";
 
-    //public static final String FFMPEG_EXE = "D:\\ffmpeg\\bin\\ffmpeg.exe";
+    public static final String FFMPEG_EXE = "G:\\ffmpeg.exe";
 
-    public static final String FFMPEG_EXE = "/usr/bin/ffmpeg";
+    public static final String FILE_SPACE = "D:\\lx_videos_prod";
 
-    //public static final String FILE_SPACE = "D:\\lx_videos_prod";
-
-    public static final String FILE_SPACE = "/home/lx_videos_prod";
+//    public static final String FFMPEG_EXE = "/usr/local/ffmpeg/bin/ffmpeg";
+//
+//    public static final String FILE_SPACE = "/home/lx_videos_prod";
 
     public static final Integer PAGE_SIZE = 5;
 
@@ -38,4 +38,9 @@ public class BasicController {
 
     //填入你小程序的secret
     public static final String secret="49638f838cd5d2b73d61617dc90efddd";
+
+    /**
+     * 前缀
+     */
+    public static final String KEY_PREFIX_GEO = "geo_video_spring";
 }

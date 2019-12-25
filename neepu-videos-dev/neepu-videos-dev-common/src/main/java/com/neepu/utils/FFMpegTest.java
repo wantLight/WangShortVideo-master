@@ -54,9 +54,10 @@ public class FFMpegTest {
 	}
 
 	public static void main(String[] args) {
-		FFMpegTest ffmpeg = new FFMpegTest("D:\\ffmpeg\\bin\\ffmpeg.exe");
+		FFMpegTest ffmpeg = new FFMpegTest("G:\\ffmpeg.exe");
 		try {
-			ffmpeg.convertor("D:\\1.mp4", "D:\\2.avi");
+			ffmpeg.convertor("C:\\Users\\wangsq\\Desktop\\小程序实战代码文件专用分享文件夹\\lalala.mp4",
+					"C:\\Users\\wangsq\\Desktop\\小程序实战代码文件专用分享文件夹\\lalala.avi");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

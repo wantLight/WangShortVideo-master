@@ -21,7 +21,7 @@ public class FetchVideoCover {
 		
 		// 指定截取第1秒
 		command.add("-ss");
-		command.add("00:00:01");
+		command.add("00:00:03");
 				
 		command.add("-y");
 		command.add("-i");
@@ -76,9 +76,10 @@ public class FetchVideoCover {
 	
 	public static void main(String[] args) {
 		// 获取视频信息。
-		FetchVideoCover videoInfo = new FetchVideoCover("c:\\ffmpeg\\bin\\ffmpeg.exe");
+		FetchVideoCover videoInfo = new FetchVideoCover("G:\\ffmpeg.exe");
 		try {
-			videoInfo.getCover("c:\\北京北京.avi","c:\\北京.jpg");
+			videoInfo.getCover("C:\\Users\\wangsq\\Desktop\\小程序实战代码文件专用分享文件夹\\lalala.mp4",
+					"C:\\Users\\wangsq\\Desktop\\小程序实战代码文件专用分享文件夹\\北京.jpg");
 
 		} catch (Exception e) {
 			e.printStackTrace();

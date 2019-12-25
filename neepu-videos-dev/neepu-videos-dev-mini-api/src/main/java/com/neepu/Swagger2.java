@@ -55,12 +55,12 @@ public class Swagger2 {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 // 设置页面标题
-                .title("使用swagger2构建短视频后端api接口文档")
+                .title("这是使用swagger2构建的短视频后端api接口文档")
                 // 设置联系人
-                .contact(new Contact("xyzzg", "http://www.xxxxx.com", "1364932323@qq.com"))
+                .contact(new Contact("李鑫", "http://www.xxxxx.com", "1710026942@qq.com"))
                 // 描述
-                .description("欢迎访问短视频接口文档，这里是描述信息")
+                .description("版权所有：东北电力大学计算机学院")
                 // 定义版本号
-                .version("1.0").build();
+                .version("1.2").build();
     }
 }

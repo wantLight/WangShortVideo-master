@@ -14,24 +14,37 @@ public class MergeVideoMp3 {
 		super();
 		this.ffmpegEXE = ffmpegEXE;
 	}
-	
+
+	//ffmpeg -i bgm.mp3 -i input.mp4 -t 6 -filter_complex amix=inputs=2 output.mp4
+
+	/**
+	 * 注意:inputs=输入流数量, duration=决定流的结束,
+	 * dropout_transition= 输入流结束时,容量重整时间,
+	 * (longest最长输入时间,shortest最短,first第一个输入持续的时间))
+	 * @throws Exception
+	 */
 	public void convertor(String videoInputPath, String mp3InputPath,
 			double seconds, String videoOutputPath) throws Exception {
 //		ffmpeg.exe -i 1.mp4 -i bgm.mp3 -t 7 -y 2.mp4
 		System.out.print(mp3InputPath);
 		List<String> command = new ArrayList<>();
 		command.add(ffmpegEXE);
+
+		command.add("-i");
+		command.add(mp3InputPath);
 		
 		command.add("-i");
 		command.add(videoInputPath);
 		
-		command.add("-i");
-		command.add(mp3InputPath);
+
 		
 		command.add("-t");
 		command.add(String.valueOf(seconds));
 		
-		command.add("-y");
+		//command.add("-y");
+		command.add("-filter_complex");
+		command.add("amix=inputs=2:duration=first:dropout_transition=2");
+
 		command.add(videoOutputPath);
 		
 //		for (String c : command) {
@@ -63,9 +76,11 @@ public class MergeVideoMp3 {
 	}
 
 	public static void main(String[] args) {
-		MergeVideoMp3 ffmpeg = new MergeVideoMp3("D:\\ffmpeg\\bin\\ffmpeg.exe");
+		MergeVideoMp3 ffmpeg = new MergeVideoMp3("G:\\ffmpeg.exe");
 		try {
-			ffmpeg.convertor("D:\\2.mp4", "D:\\3.mp3", 14, "D:\\这是通过java生产的视频.mp4");
+			ffmpeg.convertor("C:\\Users\\wangsq\\Desktop\\小程序实战代码文件专用分享文件夹\\lalala.avi",
+					"C:\\Users\\wangsq\\Desktop\\小程序实战代码文件专用分享文件夹\\我知道.mp3", 15,
+					"C:\\Users\\wangsq\\Desktop\\小程序实战代码文件专用分享文件夹\\这是通过java生产的视频1.mp4");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
