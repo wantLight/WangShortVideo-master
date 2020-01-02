@@ -73,7 +73,10 @@ public class VideoServiceImpl implements VideoService {
         /**
          * 上传视频后需要经过管理员审核
          */
-        video.setStatus(VideoStatusEnum.AUDIT.getValue());
+        //video.setStatus(VideoStatusEnum.AUDIT.getValue());
+
+
+        video.setStatus(VideoStatusEnum.SUCCESS.getValue());
 
         videosMapper.insertSelective(video);
         return id;

@@ -82,7 +82,7 @@ public class VideoController extends BasicController{
         String coverPathDB = "/" + userId + "/video";
 
         FileOutputStream fileOutputStream = null;
-        InputStream inputStream = null;
+        InputStream inputStream;
         // 文件上传的最终保存路径
         String finalVideoPath = "";
         try {
@@ -129,6 +129,8 @@ public class VideoController extends BasicController{
             }
         }
 
+        String videoInputPath = finalVideoPath;
+
         // 判断bgmId是否为空，如果不为空，
         // 那就查询bgm的信息，并且合并视频，生产新的视频
         if (StringUtils.isNotBlank(bgmId)) {
@@ -136,7 +138,7 @@ public class VideoController extends BasicController{
             String mp3InputPath = FILE_SPACE + bgm.getPath();
 
             MergeVideoMp3 tool = new MergeVideoMp3(FFMPEG_EXE);
-            String videoInputPath = finalVideoPath;
+
 
             String videoOutputName = UUID.randomUUID().toString() + ".mp4";
             uploadPathDB = "/" + userId + "/video" + "/" + videoOutputName;
@@ -149,7 +151,7 @@ public class VideoController extends BasicController{
         if (StringUtils.isBlank(coverImg)){
             // 对视频进行截图
             FetchVideoCover videoInfo = new FetchVideoCover(FFMPEG_EXE);
-            videoInfo.getCover(finalVideoPath, FILE_SPACE + coverPathDB);
+            videoInfo.getCover(videoInputPath, FILE_SPACE + coverPathDB);
         } else {
             coverPathDB = coverImg;
         }
@@ -196,7 +198,6 @@ public class VideoController extends BasicController{
     public IMoocJSONResult uploadCover(String userId,
                                        @ApiParam(value="视频封面", required=true)
                                                MultipartFile file) throws Exception {
-
 
         // 文件保存的命名空间
 		//String FILE_SPACE = "D:/neepu_videos_dev";
@@ -264,11 +265,11 @@ public class VideoController extends BasicController{
             page = 1;
         }
         List<String> videoIds = Lists.newArrayList();
-
+        boolean geoFlag =type.equals(1) && latitude != null && !latitude.equals(0);
         /**
          * 使用redis-geo类型查询附近的人发送的视频
          */
-        if (type.equals(1) && latitude != null && !latitude.equals(0)){
+        if (geoFlag){
             GeoOperations<String, String> geoOps = redisTemplate.opsForGeo();
             //设置geo查询参数
             RedisGeoCommands.GeoRadiusCommandArgs geoRadiusArgs = RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs();
@@ -302,8 +303,14 @@ public class VideoController extends BasicController{
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             searchSourceBuilder.query(builder).minScore(3);
             List<String> idList = esUtil.projectSearch(EsUtil.INDEX_NAME, searchSourceBuilder);
-            //求交集
-            videoIds = videoIds.stream().filter(item -> idList.contains(item)).collect(Collectors.toList());
+
+            if (geoFlag){
+                //求交集
+                videoIds = videoIds.stream().filter(item -> idList.contains(item)).collect(Collectors.toList());
+            } else {
+                videoIds = idList;
+            }
+
         }
 
 

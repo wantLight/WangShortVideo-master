@@ -21,13 +21,13 @@ public class BasicController {
 
     public static final String USER_REDIS_SESSION = "user-redis-session";
 
-    public static final String FFMPEG_EXE = "G:\\ffmpeg.exe";
-
-    public static final String FILE_SPACE = "D:\\lx_videos_prod";
-
-//    public static final String FFMPEG_EXE = "/usr/local/ffmpeg/bin/ffmpeg";
+//    public static final String FFMPEG_EXE = "G:\\ffmpeg.exe";
 //
-//    public static final String FILE_SPACE = "/home/lx_videos_prod";
+//    public static final String FILE_SPACE = "D:\\lx_videos_prod";
+
+    public static final String FFMPEG_EXE = "/usr/local/ffmpeg/bin/ffmpeg";
+
+    public static final String FILE_SPACE = "/home/lx_videos_prod";
 
     public static final Integer PAGE_SIZE = 5;
 

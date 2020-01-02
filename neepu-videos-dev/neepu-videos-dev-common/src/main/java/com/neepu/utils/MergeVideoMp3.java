@@ -21,6 +21,9 @@ public class MergeVideoMp3 {
 	 * 注意:inputs=输入流数量, duration=决定流的结束,
 	 * dropout_transition= 输入流结束时,容量重整时间,
 	 * (longest最长输入时间,shortest最短,first第一个输入持续的时间))
+	 *
+	 * ffmpeg -i 1.mp3 -i lalala.mp4 -t 15 -filter_complex amix=inputs=2:duration=first:dropout_transition=2 output.mp4
+	 *
 	 * @throws Exception
 	 */
 	public void convertor(String videoInputPath, String mp3InputPath,
@@ -46,10 +49,7 @@ public class MergeVideoMp3 {
 		command.add("amix=inputs=2:duration=first:dropout_transition=2");
 
 		command.add(videoOutputPath);
-		
-//		for (String c : command) {
-//			System.out.print(c + " ");
-//		}
+
 		
 		ProcessBuilder builder = new ProcessBuilder(command);
 		Process process = builder.start();
@@ -57,16 +57,12 @@ public class MergeVideoMp3 {
 		InputStream errorStream = process.getErrorStream();
 		InputStreamReader inputStreamReader = new InputStreamReader(errorStream);
 		BufferedReader br = new BufferedReader(inputStreamReader);
-		
-		String line = "";
-		while ( (line = br.readLine()) != null ) {
-		}
+
 		
 		if (br != null) {
 			br.close();
 		}
 		if (inputStreamReader != null) {
-
 			inputStreamReader.close();
 		}
 		if (errorStream != null) {
